@@ -30,3 +30,15 @@ export async function DELETE(request) {
 
   return NextResponse.json({ msg: 'Todo Delete' })
 }
+
+export async function PUT(request) {
+  const mongoId = await request.nextUrl.searchParams.get('mongoId')
+  await TodoModel.findByIdAndUpdate(mongoId, {
+    // $set: 업데이트 연산자로, 문서의 특정 필드를 설정하려고 할 때 사용합니다.
+    $set: {
+      isCompleted: true,
+    },
+  })
+
+  return NextResponse.json({ msg: 'Todo Completed' })
+}

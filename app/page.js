@@ -30,6 +30,20 @@ export default function Home() {
     fetchTodos()
   }
 
+  const completeTodo = async (mongoId) => {
+    const response = await axios.put(
+      '/api',
+      {},
+      {
+        params: {
+          mongoId,
+        },
+      },
+    )
+    toast.success(response.data.msg)
+    fetchTodos()
+  }
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -118,6 +132,7 @@ export default function Home() {
                   complete={item.isCompleted}
                   mongoId={item._id}
                   deleteTodo={deleteTodo}
+                  completeTodo={completeTodo}
                 />
               )
             })}
